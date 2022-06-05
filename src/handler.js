@@ -8,11 +8,27 @@ const registerHandler = (request, h) => {
   const insertedAt = new Date().toISOString()
 
   // Client tidak melampirkan properti namepada request body.
-  if (name === '') {
+  if (name === undefined) {
     return h
       .response({
         status: 'fail',
         message: 'Plese fill name'
+      }).code(400)
+  }
+
+  if (email === undefined) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Plese fill email'
+      }).code(400)
+  }
+
+  if (password === undefined) {
+    return h
+      .response({
+        status: 'fail',
+        message: 'Plese fill password'
       }).code(400)
   }
 
@@ -82,4 +98,24 @@ const loginHanlder = (request, h) => {
   return response
 }
 
-module.exports = { registerHandler, loginHanlder}
+const getAllBooksHandler = (request, h) => {
+  let searchBook = users
+  let {name, email, password} = request.query
+
+
+  const response = h.response({
+    status: 'success',
+    data: {
+      books: searchBook.map((book) => ({
+        id: book.userId,
+        name: book.name,
+        email: book.email,
+        password: book.password
+      }))
+    }
+  }).code(200)
+  return response
+}
+
+
+module.exports = { registerHandler, loginHanlder, getAllBooksHandler}

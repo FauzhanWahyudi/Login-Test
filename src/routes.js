@@ -1,4 +1,4 @@
-const { registerHandler, loginHanlder} = require('./handler')
+const { registerHandler, loginHanlder, getAllBooksHandler} = require('./handler')
 
 const routes = [
   {
@@ -11,7 +11,11 @@ const routes = [
     path: '/login',
     handler: loginHanlder
   },
- 
+  {
+    method: 'GET',
+    path: '/books',
+    handler: getAllBooksHandler
+  },
 ]
 
 module.exports = routes
