@@ -2,7 +2,7 @@ const { nanoid } = require('nanoid')
 const users = require('./user')
 
 const registerHandler = (request, h) => {
-  const { name, email, password } = request.payload // req body
+  const { name=String, email=String, password=String } = request.payload // req body
 
   const userId = nanoid(16)
   const insertedAt = new Date().toISOString()
@@ -40,7 +40,7 @@ const registerHandler = (request, h) => {
 
 
 const loginHanlder = (request, h) => {
-  const { name, password } = request.payload
+  const { email=String, password=String } = request.payload
   
   let searchUser = users
 
