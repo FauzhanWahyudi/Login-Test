@@ -107,7 +107,7 @@ const getAllBooksHandler = (request, h) => {
     status: 'success',
     data: {
       books: searchBook.map((book) => ({
-        id: book.userId,
+        id: book.name,
         name: book.name,
         email: book.email,
         password: book.password
