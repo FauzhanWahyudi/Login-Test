@@ -2,13 +2,13 @@ const { nanoid } = require('nanoid')
 const users = require('./user')
 
 const registerHandler = (request, h) => {
-  const { name=String, email=String, password=String } = request.payload // req body
+  const { name = String, email = String, password = String } = request.payload // req body
 
   const userId = nanoid(16)
   const insertedAt = new Date().toISOString()
 
   // Client tidak melampirkan properti namepada request body.
-  if (name === undefined) {
+  if (name === '') {
     return h
       .response({
         status: 'fail',
@@ -21,7 +21,7 @@ const registerHandler = (request, h) => {
   }
 
   users.push(newUser)
-  const isSuccess = users.filter((note) => note.id === userId).length > 0
+  const isSuccess = users.filter((a) => a.id === userId).length > 0
 
   if (isSuccess) {
     return h.response({
@@ -34,23 +34,23 @@ const registerHandler = (request, h) => {
   return h
     .response({
       status: 'error',
-      message: 'Buku gagal ditambahkan'
+      message: 'User gagal ditambahkan'
     }).code(500)
 }
 
 
 const loginHanlder = (request, h) => {
-  const { email=String, password=String } = request.payload
+  const { email = String, password = String } = request.payload
   
   let searchUser = users
 
   //CARI NAME DALAM ARRAY
-  if (name !== undefined) {
-    searchUser = searchUser.filter((n) => n.name.includes(name))
-    if (searchUser.name === undefined) {
+  if (email !== undefined) {
+    searchUser = searchUser.filter((n) => n.email.includes(email))
+    if (searchUser === undefined) {
       const response = h.response({
         status: 'fail',
-        message: 'name or password is false'
+        message: 'email or password is false'
       })
       response.code(404)
       return response
@@ -60,7 +60,7 @@ const loginHanlder = (request, h) => {
   //CARI PASSWORD DALAM ARRAY
   if (password !== undefined) {
     searchUser = searchUser.filter((n) => n.password.includes(password))
-    if (searchUser.password === undefined) {
+    if (searchUser === undefined) {
       const response = h.response({
         status: 'fail',
         message: 'name or password is false'
