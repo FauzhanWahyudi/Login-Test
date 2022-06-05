@@ -100,14 +100,12 @@ const loginHanlder = (request, h) => {
 
 const getAllBooksHandler = (request, h) => {
   let searchBook = users
-  let {name, email, password} = request.query
-
 
   const response = h.response({
     status: 'success',
     data: {
       books: searchBook.map((book) => ({
-        id: book.name,
+        id: book.userId,
         name: book.name,
         email: book.email,
         password: book.password
