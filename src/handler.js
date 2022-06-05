@@ -21,7 +21,7 @@ const registerHandler = (request, h) => {
   }
 
   users.push(newUser)
-  const isSuccess = users.filter((a) => a.id === userId).length > 0
+  const isSuccess = users.filter((a) => a.userId === userId).length > 0
 
   if (isSuccess) {
     return h.response({
